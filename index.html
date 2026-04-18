@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love, But On Purpose</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FDF8F5; color: #2C2C2A; }
+    .page { max-width: 640px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 3rem 0 2.5rem; }
+    .eyebrow { font-size: 12px; letter-spacing: 0.12em; color: #888780; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .hero h1 { font-size: 30px; font-weight: 500; line-height: 1.35; color: #2C2C2A; margin-bottom: 1rem; }
+    .hero h1 em { font-style: italic; color: #B84B6A; }
+    .hero p { font-size: 16px; line-height: 1.8; color: #5F5E5A; max-width: 480px; margin: 0 auto 2rem; }
+    .divider { width: 40px; height: 2px; background: #E2A0B8; border-radius: 2px; margin: 2rem auto; }
+
+    /* Sections */
+    .section { margin: 2.5rem 0; }
+    .step-label { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #B84B6A; font-weight: 500; margin-bottom: 0.6rem; }
+    .step-dot { width: 6px; height: 6px; border-radius: 50%; background: #E2A0B8; }
+    h2 { font-size: 18px; font-weight: 500; color: #2C2C2A; margin-bottom: 0.5rem; }
+    .section-note { font-size: 14px; color: #5F5E5A; line-height: 1.7; margin-bottom: 1.25rem; }
+
+    /* Card */
+    .card { background: #ffffff; border: 0.5px solid rgba(44,44,42,0.12); border-radius: 12px; padding: 1.5rem; }
+    .field { margin-bottom: 1.25rem; }
+    .field:last-child { margin-bottom: 0; }
+    label { display: block; font-size: 13px; color: #5F5E5A; margin-bottom: 6px; }
+    input[type=text], select, textarea {
+      width: 100%; font-size: 15px; padding: 10px 14px;
+      border: 0.5px solid rgba(44,44,42,0.15);
+      border-radius: 8px;
+      background: #F9F4F1;
+      color: #2C2C2A;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input[type=text]:focus, select:focus, textarea:focus { border-color: #E2A0B8; }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    /* Love type buttons */
+    .love-types { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+    .love-btn { padding: 8px 18px; font-size: 14px; border-radius: 100px; border: 0.5px solid rgba(44,44,42,0.15); background: #F9F4F1; color: #5F5E5A; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .love-btn:hover { border-color: #E2A0B8; color: #B84B6A; }
+    .love-btn.active { background: #FBEAF0; border-color: #E2A0B8; color: #B84B6A; font-weight: 500; }
+
+    /* Example rows */
+    .example-row { border-radius: 8px; text-align: left; padding: 10px 14px; font-size: 14px; display: block; width: 100%; }
+
+    /* Two col grid */
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* Reminder box */
+    .reminder-box { background: #FDF5F8; border: 0.5px solid #F0C8D8; border-radius: 12px; padding: 1.25rem 1.5rem; }
+    .reminder-quote { font-size: 16px; font-style: italic; color: #8C3057; line-height: 1.7; margin-bottom: 0.5rem; }
+    .reminder-sub { font-size: 13px; color: #5F5E5A; }
+
+    /* Yes/No buttons */
+    .yes-no { display: flex; gap: 8px; margin-top: 6px; }
+    .yn-btn { flex: 1; padding: 9px; font-size: 14px; border-radius: 8px; border: 0.5px solid rgba(44,44,42,0.15); background: #F9F4F1; color: #5F5E5A; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .yn-btn:hover { border-color: #E2A0B8; color: #B84B6A; }
+    .yn-btn.active { background: #FBEAF0; border-color: #E2A0B8; color: #B84B6A; }
+
+    /* Submit */
+    .submit-btn { width: 100%; padding: 14px; font-size: 16px; border-radius: 12px; border: none; background: #C95580; color: white; cursor: pointer; font-family: inherit; font-weight: 500; transition: background 0.15s; margin-top: 1.5rem; }
+    .submit-btn:hover { background: #B84B6A; }
+
+    /* Confirmation */
+    .confirmation { display: none; text-align: center; padding: 2rem; background: #FBEAF0; border-radius: 12px; border: 0.5px solid #E2A0B8; margin-top: 1.5rem; }
+    .confirmation h3 { font-size: 20px; font-weight: 500; color: #B84B6A; margin-bottom: 0.5rem; }
+    .confirmation p { font-size: 14px; color: #5F5E5A; line-height: 1.7; }
+
+    /* Research */
+    .research-block { margin: 3rem 0 0; border-top: 0.5px solid rgba(44,44,42,0.12); padding-top: 2rem; }
+    .research-block h3 { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #888780; margin-bottom: 1rem; }
+    .insight { display: flex; gap: 12px; margin-bottom: 1rem; align-items: flex-start; }
+    .insight-dot { width: 8px; height: 8px; border-radius: 50%; background: #E2A0B8; margin-top: 6px; flex-shrink: 0; }
+    .insight p { font-size: 14px; color: #5F5E5A; line-height: 1.7; }
+
+    /* Footer */
+    .footer { text-align: center; margin-top: 3rem; font-size: 13px; color: #888780; line-height: 1.8; }
+    .footer strong { color: #B84B6A; font-weight: 500; }
+
+    @media (max-width: 480px) {
+      .row2 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="eyebrow">Love, But On Purpose</div>
+    <h1>You don't need more love.<br>You need more <em>intentional</em> moments.</h1>
+    <p>Most of us care deeply about the people around us. But care without action quietly fades. This space helps you turn that care into something small, real, and repeatable.</p>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section">
+    <div class="step-label"><span class="step-dot"></span> Step 1</div>
+    <h2>What connection do you want to strengthen?</h2>
+    <p class="section-note">Think of one relationship that deserves a little more of you.</p>
+    <div class="card">
+      <div class="field">
+        <label>Describe your intention</label>
+        <input type="text" id="intention" placeholder="e.g. Have lunch with a friend twice this week" />
+      </div>
+      <div class="field">
+        <label>Or pick a starting point</label>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+          <button class="love-btn example-row" onclick="pickExample(this,'Have lunch with a friend twice this week')">Have lunch with a friend twice this week</button>
+          <button class="love-btn example-row" onclick="pickExample(this,'Call a family member once')">Call a family member once</button>
+          <button class="love-btn example-row" onclick="pickExample(this,&quot;Text someone I\'ve drifted from&quot;)">Text someone I've drifted from</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section">
+    <div class="step-label"><span class="step-dot"></span> Step 2</div>
+    <h2>Who is this for?</h2>
+    <p class="section-note">Every kind of love deserves attention.</p>
+    <div class="card">
+      <div class="love-types">
+        <button class="love-btn" onclick="toggleLove(this)">Friend</button>
+        <button class="love-btn" onclick="toggleLove(this)">Family</button>
+        <button class="love-btn" onclick="toggleLove(this)">Partner</button>
+        <button class="love-btn" onclick="toggleLove(this)">Self</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="section">
+    <div class="step-label"><span class="step-dot"></span> Step 3</div>
+    <h2>Make it real</h2>
+    <p class="section-note">Vague intentions don't usually happen. Specific ones do.</p>
+    <div class="card">
+      <div class="row2">
+        <div class="field">
+          <label>When?</label>
+          <select>
+            <option value="">Choose a day</option>
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>How often?</label>
+          <select>
+            <option value="">How many times?</option>
+            <option>Once this week</option>
+            <option>Twice this week</option>
+            <option>Daily this week</option>
+            <option>Just this once</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Who? <span style="color:#888780;font-weight:400">(optional)</span></label>
+        <input type="text" placeholder="A name, or just 'my friend'" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="section">
+    <div class="step-label"><span class="step-dot"></span> Step 4</div>
+    <h2>A gentle nudge at the right moment</h2>
+    <p class="section-note">Not a notification. Not a ping. Just a quiet reminder of what you already said matters.</p>
+    <div class="reminder-box">
+      <div class="reminder-quote">"You said connection matters. Still true today?"</div>
+      <div class="reminder-sub">We'll send this when the moment you chose gets close — so the only thing left is to show up.</div>
+    </div>
+    <div class="card" style="margin-top:1rem;">
+      <div class="field">
+        <label>Send me reminders via</label>
+        <select>
+          <option>Email</option>
+          <option>In-app notification</option>
+          <option>No reminders, I'll remember</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="section">
+    <div class="step-label"><span class="step-dot"></span> Step 5</div>
+    <h2>After the moment, a small reflection</h2>
+    <p class="section-note">You don't have to analyze it. Just notice.</p>
+    <div class="card">
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div class="field" style="margin-bottom:0">
+          <label>Did this feel meaningful?</label>
+          <div class="yes-no">
+            <button class="yn-btn" onclick="toggleYN(this)">Yes</button>
+            <button class="yn-btn" onclick="toggleYN(this)">Somewhat</button>
+            <button class="yn-btn" onclick="toggleYN(this)">Not really</button>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>Would you do it again?</label>
+          <div class="yes-no">
+            <button class="yn-btn" onclick="toggleYN(this)">Yes, definitely</button>
+            <button class="yn-btn" onclick="toggleYN(this)">Maybe</button>
+            <button class="yn-btn" onclick="toggleYN(this)">Probably not</button>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>One sentence about how it went <span style="color:#888780;font-weight:400">(optional)</span></label>
+          <textarea placeholder="It was short, but it reminded me they still know me..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="handleSubmit()">Start my commitment</button>
+
+  <div class="confirmation" id="confirmation">
+    <h3>You're doing something kind.</h3>
+    <p>Your intention has been set. We'll be in touch when the moment gets close.<br>Until then — it's enough that you decided this matters.</p>
+  </div>
+
+  <!-- Research -->
+  <div class="research-block">
+    <h3>A little context, gently</h3>
+    <div class="insight">
+      <div class="insight-dot"></div>
+      <p>Relationships grow through small, repeated shared experiences — not grand gestures. The little moments are what actually build closeness over time.</p>
+    </div>
+    <div class="insight">
+      <div class="insight-dot"></div>
+      <p>People consistently underestimate how much others appreciate being reached out to. That "they're probably too busy" feeling? It's usually wrong.</p>
+    </div>
+    <div class="insight">
+      <div class="insight-dot"></div>
+      <p>Tiny, specific actions are far easier to follow through on than big, vague intentions. "I'll be a better friend" doesn't work. "I'll text Maya on Thursday" does.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Love, But On Purpose</strong><br>
+    A small project about the practice of caring out loud.<br>
+    <span style="font-size:12px;margin-top:4px;display:block;">Made with intention. Not an algorithm.</span>
+  </div>
+
+</div>
+<script>
+  function pickExample(el, text) {
+    document.querySelectorAll('.example-row').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('intention').value = text;
+  }
+  function toggleLove(el) {
+    el.closest('.love-types').querySelectorAll('.love-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function toggleYN(el) {
+    el.closest('.yes-no').querySelectorAll('.yn-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function handleSubmit() {
+    document.getElementById('confirmation').style.display = 'block';
+    document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+</body>
+</html>
